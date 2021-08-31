@@ -1,6 +1,10 @@
 import jwt from "jsonwebtoken";
 import {query} from "../db/index.js";
 
+import { config } from 'dotenv';
+
+config();
+
 class tokenService {
     static async generateTokens(user_email) {
         const payload = {

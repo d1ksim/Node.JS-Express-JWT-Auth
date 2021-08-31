@@ -3,6 +3,10 @@ import { query } from '../db/index.js';
 import bcrypt from 'bcryptjs';
 import { tokenService }  from "../services/token-service.js";
 
+import { config } from 'dotenv';
+
+config();
+
 const authRouter = Router();
 
 authRouter.post('/signup', async (req, res) => {
