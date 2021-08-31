@@ -13,6 +13,13 @@ CREATE TABLE users (
     user_password text NOT NULL,
     date_added timestamp default NULL
 );
+
+CREATE TABLE tokens (
+    token_id bigserial primary key,
+    user_email text NULL,
+    token_access text NOT NULL,
+    token_refresh text NOT NULL
+);
  */
 
 import pkg from 'pg';
