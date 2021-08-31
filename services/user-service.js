@@ -9,15 +9,14 @@ class userService {
         if (rows[0]) {
             throw apiError.BadRequest(`Пользователь с почтовым адресом ${email} уже существует`);
         }
+
         const hashPassword = await bcrypt.hash(password, 15);
         await query('INSERT INTO users (user_email, user_password) VALUES ($1, $2)', [email, hashPassword]);
-
         return await tokenService.generateTokens(email);
     }
 
     static async signin(email, password) {
         const { rows } = await query('SELECT * FROM users WHERE user_email = $1', [email]);
-
         if (!rows[0]) {
             throw apiError.BadRequest('User not found');
         }
@@ -26,7 +25,6 @@ class userService {
         if (!passwordIsValid) {
             throw apiError.BadRequest('Password is invalid');
         }
-
         return await tokenService.generateTokens(email);
     }
 }
