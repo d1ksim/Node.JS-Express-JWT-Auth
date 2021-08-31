@@ -20,6 +20,8 @@ authRouter.post('/signup', async (req, res) => {
     await query('INSERT INTO users (user_email, user_password) VALUES ($1, $2)', [email, hashPassword]);
 
     const token = await tokenService.generateTokens(email);
+
+    res.cookie('refreshToken', token.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true});
     res.status(200).json({message: "Пользователь успешно создан", access_token: token});
 });
 
@@ -37,7 +39,17 @@ authRouter.post('/signin', async (req, res) => {
     }
 
     const token = await tokenService.generateTokens(email);
+
+    res.cookie('refreshToken', token.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true});
     res.status(200).json({message: "Пользователь успешно авторизирован", access_token: token});
+});
+
+// Наброски
+authRouter.get('/refresh', async (req, res) => {
+    const { refreshToken } = req.cookies;
+
+    const token = await tokenService.generateRefreshToken(refreshToken);
+    res.cookie('refreshToken', token.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true});
 });
 
 export { authRouter };

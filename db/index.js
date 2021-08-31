@@ -26,11 +26,11 @@ import pkg from 'pg';
 const {Pool} = pkg;
 
 const pool = new Pool({
-    user: 'd1mpi',
-    host: 'localhost',
-    database: 'base',
-    password: 'add76caf',
-    port: 5432,
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    database: process.env.DB_BASE,
+    password: process.env.DB_PASSWORD,
+    port: process.env.DB_PORT
 });
 
 const query = async (text, params, callback) => {
