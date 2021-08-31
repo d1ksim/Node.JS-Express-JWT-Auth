@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import {query} from "../db";
+import {query} from "../db/index.js";
 
 class tokenService {
     static async generateTokens(user_email) {
@@ -17,8 +17,16 @@ class tokenService {
         }
     }
 
-    async saveToken(id, refreshToken) {
+    static async generateRefreshToken(user_email, refreshToken) {
+        try {
+            const {rows} = await query('SELECT * FROM tokens WHERE user_email = $1', [user_email]);
 
+            if (rows[0]) {
+                await query('UPDATE tokens SET token_refresh = $1 WHERE user_email = $2', [refreshToken, user_email]);
+            }
+        } catch (e) {
+            console.log(e);
+        }
     }
 }
 

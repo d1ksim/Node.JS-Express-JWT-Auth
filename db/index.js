@@ -37,4 +37,4 @@ const query = async (text, params, callback) => {
     return pool.query(text, params, callback);
 };
 
-export { query, pool };
+export { query };

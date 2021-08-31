@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import { query, pool } from '../db/index.js';
+import { query } from '../db/index.js';
 import bcrypt from 'bcryptjs';
-import { tokenService }  from "../services/token-service";
+import { tokenService }  from "../services/token-service.js";
 
 const authRouter = Router();
 
@@ -19,7 +19,7 @@ authRouter.post('/signup', async (req, res) => {
     const hashPassword = await bcrypt.hash(password, 15);
     await query('INSERT INTO users (user_email, user_password) VALUES ($1, $2)', [email, hashPassword]);
 
-    const token = tokenService.generateTokens(email);
+    const token = await tokenService.generateTokens(email);
     res.status(200).json({message: "Пользователь успешно создан", access_token: token});
 });
 
@@ -36,7 +36,7 @@ authRouter.post('/signin', async (req, res) => {
         return res.status(400).json({message: 'Пароль не верный'});
     }
 
-    const token = tokenService.generateTokens(email);
+    const token = await tokenService.generateTokens(email);
     res.status(200).json({message: "Пользователь успешно авторизирован", access_token: token});
 });
 
