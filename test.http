@@ -1,8 +1,9 @@
-POST http://localhost:2001/api/auth/signup
+POST http://localhost:2001/api/user/signin
 Content-Type: application/json
+Keep-Alive: timeout=0
 
 {
-  "email": "emae",
+  "email": "emaes@yandex.ru",
   "password": "123123"
 }
 
