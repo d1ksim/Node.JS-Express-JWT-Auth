@@ -27,6 +27,15 @@ class userService {
         }
         return await tokenService.generateTokens(email);
     }
+
+    static async editProfile(email, params, data) {
+        try {
+            await query(`UPDATE users SET ${params} = $1 WHERE user_email = $2`, [data, email]);
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
 }
 
 export { userService };

@@ -3,13 +3,13 @@ Set-Cookie: refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtYW
 Accept: application/json
 
 ###
-POST http://localhost:2001/api/user/signin
+POST http://localhost:2001/api/user/editProfile
 Content-Type: application/json
 Keep-Alive: timeout=0
 
 {
-  "email": "emaes@yandex.ru",
-  "password": "123123"
+  "params": "user_avatar",
+  "data": "123124"
 }
 
 ###

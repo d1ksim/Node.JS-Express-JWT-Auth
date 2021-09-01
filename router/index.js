@@ -14,6 +14,7 @@ router.post('/user/signup',
 router.post('/user/signin', userController.signin);
 router.get('/user/logout', userController.logout);
 router.get('/user/getUserInfo', authMiddleware, userController.getUserInfo);
+router.post('/user/editProfile', userController.editProfile);
 
 router.post('/token/refresh', tokenController.refresh);
 

@@ -11,6 +11,8 @@ CREATE TABLE users (
     user_name text NULL,
     user_email text NOT NULL,
     user_password text NOT NULL,
+    user_avatar text NULL,
+
     date_added timestamp default NULL
 );
 
