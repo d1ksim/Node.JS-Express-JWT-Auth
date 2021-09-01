@@ -1,4 +1,4 @@
-import { apiError } from "../exceptions/api-error";
+import { apiError } from "../exceptions/api-error.js";
 
 function authMiddleware(req, res, next) {
     try {

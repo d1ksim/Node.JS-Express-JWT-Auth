@@ -34,7 +34,16 @@ class userController {
     }
 
     static async logout(req, res, next) {
+        res.clearCookie('refreshToken');
+    }
 
+    static async getUserInfo(req, res, next) {
+        try {
+            const { refreshToken } = req.cookies();
+            console.log(refreshToken);
+        } catch (e) {
+            next(e);
+        }
     }
 }
 

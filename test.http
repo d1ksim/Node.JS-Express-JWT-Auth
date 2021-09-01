@@ -1,10 +1,15 @@
+GET http://localhost:2001/api/user/getUserInfo
+Set-Cookie: refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtYWVzQHlhbmRleC5ydSIsImlhdCI6MTYzMDQ4NDg4OCwiZXhwIjoxNjMzMDc2ODg4fQ.tnoy0I07cKQWbnOsR8IOQw2pjpHn8YJonnMgBuBIQUA; Max-Age=2592000; Path=/; Expires=Fri, 01 Oct 2021 08:28:08 GMT; HttpOnly
+Accept: application/json
+
+###
 POST http://localhost:2001/api/user/signin
 Content-Type: application/json
 Keep-Alive: timeout=0
 
 {
   "email": "emaes@yandex.ru",
-  "password": "12312"
+  "password": "123123"
 }
 
 ###
