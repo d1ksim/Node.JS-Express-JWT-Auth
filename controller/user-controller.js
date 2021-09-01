@@ -2,6 +2,7 @@ import { validationResult } from "express-validator";
 import { userService } from "../services/user-service.js";
 import { apiError } from "../exceptions/api-error.js";
 import { userMiddleware } from "../middleware/user-middleware.js";
+import {query} from "../db/index.js";
 
 class userController {
     static async signup(req, res, next) {
@@ -44,7 +45,14 @@ class userController {
     static async getUserInfo(req, res, next) {
         try {
             const { refreshToken } = req.cookies;
-            console.log(refreshToken);
+            const user_email = await userMiddleware.getUserEmailByToken(refreshToken);
+
+            const { rows } = await query('SELECT * FROM users WHERE user_email = $1', [user_email]);
+            if (!rows[0]) {
+                throw apiError.BadRequest(`Данный пользователь не найден`);
+            }
+
+            res.status(200).json(rows[0]);
         } catch (e) {
             next(e);
         }
